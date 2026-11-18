@@ -38,7 +38,7 @@ sign in and click **Allow**. Until you do, Rekogni has no tools in Claude Code, 
 in.
 
 - Update: `/plugin marketplace update rekogni`, then `/plugin uninstall rekogni@rekogni` and install again.
-- Remove: `/plugin uninstall rekogni@rekogni`.
+- Remove: see [Uninstall](#uninstall).
 - Connector only, without the skill: `claude mcp add --transport http rekogni https://app.rekogni.ai/api/mcp`.
 
 ## Codex
@@ -52,7 +52,7 @@ Codex asks you to sign in when the plugin installs: sign in and click **Allow** 
 later or again: `codex mcp login rekogni`.
 
 - Update: `codex plugin marketplace upgrade rekogni`, then `codex plugin add rekogni@rekogni`.
-- Remove: `codex plugin remove rekogni@rekogni`.
+- Remove: see [Uninstall](#uninstall).
 - Connector only: `codex mcp add rekogni --url https://app.rekogni.ai/api/mcp`.
 
 ## claude.ai, Claude Desktop and mobile
@@ -149,6 +149,41 @@ or `.claude/skills/`). The skill only needs the connector to be added under the 
 - "Prep my 1:1 for this week."
 - "What's our PR cycle time this month compared to last month?"
 - "Rerun my weekly summary for last week." (Runs ask for your approval and are rate limited.)
+
+## Uninstall
+
+Sign out first, so your Rekogni sign-in doesn't stay on your machine, then remove the plugin and its marketplace.
+
+**Claude Code**: in `/mcp`, pick **plugin:rekogni:rekogni** and **Clear authentication**, then:
+
+```text
+/plugin uninstall rekogni@rekogni
+/plugin marketplace remove rekogni
+```
+
+Added the connector alone instead? `claude mcp remove rekogni`.
+
+**Codex**:
+
+```bash
+codex mcp logout rekogni
+codex plugin remove rekogni@rekogni
+codex plugin marketplace remove rekogni
+```
+
+Added the connector alone instead? `codex mcp remove rekogni`.
+
+**Other agents**:
+
+| Agent | Remove |
+| --- | --- |
+| claude.ai, Claude Desktop, mobile | Settings → **Connectors** → Rekogni → **Remove** |
+| ChatGPT | Settings → **Apps & Connectors** → Rekogni → **Delete** |
+| Cursor | Delete the `rekogni` entry from `~/.cursor/mcp.json` or `.cursor/mcp.json` |
+| VS Code | Delete the `rekogni` entry from `.vscode/mcp.json`, or uninstall it from the MCP view |
+| Gemini CLI | `gemini mcp remove rekogni` |
+| Windsurf | Delete the `rekogni` entry from `~/.codeium/windsurf/mcp_config.json` |
+| The skill, added by hand | Delete the `rekogni` folder from your agent's skills folder |
 
 ## Troubleshooting
 
