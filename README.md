@@ -20,8 +20,6 @@ There are two parts, and each agent takes one or both:
 | [Codex](#codex) | Plugin, two commands | Connector and skill |
 | [claude.ai, Claude Desktop, Claude mobile](#claudeai-claude-desktop-and-mobile) | Settings → Connectors | Connector |
 | [ChatGPT](#chatgpt) | Settings → Apps & Connectors | Connector |
-| [Cursor](#cursor) | `mcp.json` | Connector (add the skill separately) |
-| [VS Code (GitHub Copilot)](#vs-code-github-copilot) | One command | Connector (add the skill separately) |
 | [Gemini CLI](#gemini-cli) | One command | Connector (add the skill separately) |
 | [Windsurf](#windsurf) | `mcp_config.json` | Connector |
 | [Any other MCP client](#any-other-agent) | `npx add-mcp` | Connector |
@@ -64,38 +62,6 @@ Settings → **Connectors** → **Add custom connector** → URL `https://app.re
 
 Settings → **Apps & Connectors** → **Advanced** → turn on **Developer mode** → **Create**. Enter the URL
 `https://app.rekogni.ai/api/mcp`, choose OAuth, then sign in and click **Allow**.
-
-## Cursor
-
-Add Rekogni to `~/.cursor/mcp.json` (every project) or `.cursor/mcp.json` (one project):
-
-```json
-{
-  "mcpServers": {
-    "rekogni": { "url": "https://app.rekogni.ai/api/mcp" }
-  }
-}
-```
-
-Open **Settings → MCP**, click **Connect** next to rekogni, sign in and click **Allow**.
-
-## VS Code (GitHub Copilot)
-
-```bash
-code --add-mcp '{"name":"rekogni","type":"http","url":"https://app.rekogni.ai/api/mcp"}'
-```
-
-Or add it to `.vscode/mcp.json` in a project:
-
-```json
-{
-  "servers": {
-    "rekogni": { "type": "http", "url": "https://app.rekogni.ai/api/mcp" }
-  }
-}
-```
-
-Start the server from the MCP view and sign in when VS Code asks.
 
 ## Gemini CLI
 
@@ -179,8 +145,6 @@ Added the connector alone instead? `codex mcp remove rekogni`.
 | --- | --- |
 | claude.ai, Claude Desktop, mobile | Settings → **Connectors** → Rekogni → **Remove** |
 | ChatGPT | Settings → **Apps & Connectors** → Rekogni → **Delete** |
-| Cursor | Delete the `rekogni` entry from `~/.cursor/mcp.json` or `.cursor/mcp.json` |
-| VS Code | Delete the `rekogni` entry from `.vscode/mcp.json`, or uninstall it from the MCP view |
 | Gemini CLI | `gemini mcp remove rekogni` |
 | Windsurf | Delete the `rekogni` entry from `~/.codeium/windsurf/mcp_config.json` |
 | The skill, added by hand | Delete the `rekogni` folder from your agent's skills folder |
@@ -212,3 +176,11 @@ Added the connector alone instead? `codex mcp remove rekogni`.
 | `plugins/rekogni/plugin.json`, `plugins/rekogni/mcp.json` | Codex plugin (portable agent-plugins format) |
 | `.claude-plugin/marketplace.json` | Claude Code marketplace |
 | `.agents/plugins/marketplace.json` | Codex marketplace |
+| `SECURITY.md`, `.github/CODEOWNERS` | How to report a security problem; who reviews changes |
+
+## Security and license
+
+Found a security problem? Please report it privately: see [SECURITY.md](SECURITY.md).
+
+Copyright © Rekogni. All rights reserved. You may install and use this plugin with your Rekogni account; no other
+license is granted.
