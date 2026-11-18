@@ -1,0 +1,13 @@
+{
+  "name": "rekogni",
+  "owner": { "name": "Rekogni", "url": "https://rekogni.ai" },
+  "description": "Rekogni for AI coding agents",
+  "plugins": [
+    {
+      "name": "rekogni",
+      "source": "./plugins/rekogni",
+      "description": "Rekogni dashboards and agent results in your coding agent. Signs in with your Rekogni account.",
+      "category": "productivity"
+    }
+  ]
+}
