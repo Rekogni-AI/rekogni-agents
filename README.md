@@ -33,8 +33,9 @@ There are two parts, and each agent takes one or both:
 /plugin install rekogni@rekogni
 ```
 
-Then ask a Rekogni question, or run `/mcp`, pick **plugin:rekogni:rekogni** and **Authenticate**. Your browser opens
-Rekogni: sign in and click **Allow**.
+**Then sign in once:** run `/mcp`, pick **plugin:rekogni:rekogni** and **Authenticate**. Your browser opens Rekogni:
+sign in and click **Allow**. Until you do, Rekogni has no tools in Claude Code, and the skill reminds you how to sign
+in.
 
 - Update: `/plugin marketplace update rekogni`, then `/plugin uninstall rekogni@rekogni` and install again.
 - Remove: `/plugin uninstall rekogni@rekogni`.
@@ -47,8 +48,8 @@ codex plugin marketplace add Rekogni-AI/rekogni-agents
 codex plugin add rekogni@rekogni
 ```
 
-Start Codex and ask a Rekogni question; sign in and click **Allow** when your browser opens. To sign in again:
-`codex mcp login rekogni`.
+Codex asks you to sign in when the plugin installs: sign in and click **Allow** when your browser opens. To sign in
+later or again: `codex mcp login rekogni`.
 
 - Update: `codex plugin marketplace upgrade rekogni`, then `codex plugin add rekogni@rekogni`.
 - Remove: `codex plugin remove rekogni@rekogni`.

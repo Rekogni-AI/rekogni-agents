@@ -38,8 +38,11 @@ if two could fit, ask which.
 
 ## Sign-in and access
 
-- The first call opens a browser to sign in to Rekogni and approve the connection. In Claude Code, `/mcp` shows the
-  server's status and signs in again; in Codex, `codex mcp login rekogni`.
+- **No `rekogni` tools available** means the user hasn't signed in yet. Don't answer from memory or guess. Tell them
+  to sign in once: in Claude Code, run `/mcp`, choose **plugin:rekogni:rekogni** (or **rekogni**), then
+  **Authenticate**; in Codex, run `codex mcp login rekogni`. Their browser opens Rekogni: sign in, click **Allow**,
+  then ask again.
+- A tool that answers "unauthorized" or asks to sign in again: same steps.
 - "You aren't a member of …" or "no access": the user can only see their own workspaces; they finish setup or ask an
   admin in the Rekogni web app. Don't retry.
 - A run refused for its limit says when runs are available again: tell the user, don't retry.
