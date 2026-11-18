@@ -1,48 +1,144 @@
-# Rekogni for AI coding agents
+# Rekogni for AI agents
 
-Ask your coding agent about your engineering work: how many pull requests you merged this week, what is waiting on
-your review, your team's standup, your 1:1 prep. Answers come from [Rekogni](https://rekogni.ai), from your own
-account.
+Ask your AI agent about your engineering work: how many pull requests you merged this week, what is waiting on your
+review, your team's standup, your 1:1 prep. Answers come from [Rekogni](https://rekogni.ai), from your own account.
 
-This repository is the Rekogni plugin for **Claude Code** and **Codex**. It adds two things:
+Everything here connects to one hosted server, `https://app.rekogni.ai/api/mcp` (the Rekogni connector, an
+[MCP](https://modelcontextprotocol.io) server). You sign in once with your Rekogni account; there are no keys to copy.
 
-- **The Rekogni connector** (our hosted MCP server). You sign in once with your Rekogni account.
-- **A short `rekogni` skill** that tells the agent which Rekogni tool answers what. Only its one-line description sits
-  in the agent's context; the rest loads when you ask a Rekogni question.
+There are two parts, and each agent takes one or both:
 
-## Install
+- **The connector** gives the agent Rekogni's tools: dashboards, agent results, and runs.
+- **The `rekogni` skill** tells the agent which tool answers which question. Only its one-line description sits in the
+  agent's context until you ask a Rekogni question.
 
-### Claude Code
+## Pick your agent
+
+| Agent | Install | Gets |
+| --- | --- | --- |
+| [Claude Code](#claude-code) | Plugin, two commands | Connector and skill |
+| [Codex](#codex) | Plugin, two commands | Connector and skill |
+| [claude.ai, Claude Desktop, Claude mobile](#claudeai-claude-desktop-and-mobile) | Settings → Connectors | Connector |
+| [ChatGPT](#chatgpt) | Settings → Apps & Connectors | Connector |
+| [Cursor](#cursor) | `mcp.json` | Connector (add the skill separately) |
+| [VS Code (GitHub Copilot)](#vs-code-github-copilot) | One command | Connector (add the skill separately) |
+| [Gemini CLI](#gemini-cli) | One command | Connector (add the skill separately) |
+| [Windsurf](#windsurf) | `mcp_config.json` | Connector |
+| [Any other MCP client](#any-other-agent) | `npx add-mcp` | Connector |
+
+## Claude Code
 
 ```text
 /plugin marketplace add Rekogni-AI/rekogni-agents
 /plugin install rekogni@rekogni
 ```
 
-On Claude Code 2.1.275 or later this is one step: `/plugin install rekogni --marketplace Rekogni-AI/rekogni-agents`.
+Then ask a Rekogni question, or run `/mcp`, pick **plugin:rekogni:rekogni** and **Authenticate**. Your browser opens
+Rekogni: sign in and click **Allow**.
 
-Then ask a Rekogni question (or run `/mcp`, pick **rekogni**, **Authenticate**). Your browser opens Rekogni: sign in
-and click **Allow**.
+- Update: `/plugin marketplace update rekogni`, then `/plugin uninstall rekogni@rekogni` and install again.
+- Remove: `/plugin uninstall rekogni@rekogni`.
+- Connector only, without the skill: `claude mcp add --transport http rekogni https://app.rekogni.ai/api/mcp`.
 
-### Codex
+## Codex
 
 ```bash
 codex plugin marketplace add Rekogni-AI/rekogni-agents
 codex plugin add rekogni@rekogni
 ```
 
-Start Codex and ask a Rekogni question; sign in and click **Allow** when your browser opens. To sign in again later:
+Start Codex and ask a Rekogni question; sign in and click **Allow** when your browser opens. To sign in again:
 `codex mcp login rekogni`.
 
-### Without the plugin
+- Update: `codex plugin marketplace upgrade rekogni`, then `codex plugin add rekogni@rekogni`.
+- Remove: `codex plugin remove rekogni@rekogni`.
+- Connector only: `codex mcp add rekogni --url https://app.rekogni.ai/api/mcp`.
 
-The connector alone, in one command (no skill):
+## claude.ai, Claude Desktop and mobile
+
+Settings → **Connectors** → **Add custom connector** → URL `https://app.rekogni.ai/api/mcp` → **Connect**, sign in,
+**Allow**. The connector then works in Claude on the web, desktop and mobile.
+
+## ChatGPT
+
+Settings → **Apps & Connectors** → **Advanced** → turn on **Developer mode** → **Create**. Enter the URL
+`https://app.rekogni.ai/api/mcp`, choose OAuth, then sign in and click **Allow**.
+
+## Cursor
+
+Add Rekogni to `~/.cursor/mcp.json` (every project) or `.cursor/mcp.json` (one project):
+
+```json
+{
+  "mcpServers": {
+    "rekogni": { "url": "https://app.rekogni.ai/api/mcp" }
+  }
+}
+```
+
+Open **Settings → MCP**, click **Connect** next to rekogni, sign in and click **Allow**.
+
+## VS Code (GitHub Copilot)
 
 ```bash
-claude mcp add --transport http rekogni https://app.rekogni.ai/api/mcp     # Claude Code, then /mcp to sign in
-codex mcp add rekogni --url https://app.rekogni.ai/api/mcp                  # Codex, then: codex mcp login rekogni
-npx add-mcp https://app.rekogni.ai/api/mcp                                  # Cursor, VS Code and others
+code --add-mcp '{"name":"rekogni","type":"http","url":"https://app.rekogni.ai/api/mcp"}'
 ```
+
+Or add it to `.vscode/mcp.json` in a project:
+
+```json
+{
+  "servers": {
+    "rekogni": { "type": "http", "url": "https://app.rekogni.ai/api/mcp" }
+  }
+}
+```
+
+Start the server from the MCP view and sign in when VS Code asks.
+
+## Gemini CLI
+
+```bash
+gemini mcp add --transport http rekogni https://app.rekogni.ai/api/mcp
+```
+
+Then run `/mcp auth rekogni` in Gemini CLI to sign in.
+
+## Windsurf
+
+Add Rekogni to `~/.codeium/windsurf/mcp_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "rekogni": { "serverUrl": "https://app.rekogni.ai/api/mcp" }
+  }
+}
+```
+
+Refresh the MCP list in Cascade and sign in when asked.
+
+## Any other agent
+
+Most agents that support remote MCP servers with sign-in can add Rekogni with:
+
+```bash
+npx add-mcp https://app.rekogni.ai/api/mcp
+```
+
+Or add the URL `https://app.rekogni.ai/api/mcp` in your agent's MCP settings as a remote (HTTP) server.
+
+## The skill in other agents
+
+The skill is a plain [Agent Skills](https://agentskills.io) file, `plugins/rekogni/skills/rekogni/SKILL.md`, so agents
+that read skills can use it next to the connector:
+
+```bash
+npx skills add Rekogni-AI/rekogni-agents
+```
+
+Or copy the `plugins/rekogni/skills/rekogni` folder into your agent's skills folder (for example `.agents/skills/`
+or `.claude/skills/`). The skill only needs the connector to be added under the name `rekogni`.
 
 ## Try it
 
@@ -53,19 +149,29 @@ npx add-mcp https://app.rekogni.ai/api/mcp                                  # Cu
 - "What's our PR cycle time this month compared to last month?"
 - "Rerun my weekly summary for last week." (Runs ask for your approval and are rate limited.)
 
+## Troubleshooting
+
+- **"needs authentication"**: sign in from your agent (`/mcp` in Claude Code, `codex mcp login rekogni` in Codex).
+- **No access, or "You aren't a member of …"**: finish setting up Rekogni at [app.rekogni.ai](https://app.rekogni.ai),
+  or ask your workspace admin to add you.
+- **Two sets of Rekogni tools**: you added the connector twice (for example the plugin and a claude.ai connector).
+  Turn one off.
+- **Numbers are all 0**: check that your workspace's repositories and issue trackers are connected in the Rekogni web
+  app, under Workspace → Integrations.
+
 ## Privacy and access
 
 - Nothing secret lives in this repository: it holds the connector's address, the skill and these docs.
 - Each person signs in with their own Rekogni account. Your agent keeps your sign-in on your machine; it never goes
   into a file here.
 - Rekogni answers only with your own data and that of the workspaces you belong to, exactly as the web app does.
-- Reading results is free; starting an agent run asks for your approval and is limited per person.
+- Reading results is free. Starting an agent run asks for your approval and is limited per person.
 
 ## What's here
 
 | Path | For |
 | --- | --- |
-| `plugins/rekogni/skills/rekogni/SKILL.md` | The skill both agents load |
+| `plugins/rekogni/skills/rekogni/SKILL.md` | The skill |
 | `plugins/rekogni/.claude-plugin/plugin.json`, `plugins/rekogni/.mcp.json` | Claude Code plugin |
 | `plugins/rekogni/plugin.json`, `plugins/rekogni/mcp.json` | Codex plugin (portable agent-plugins format) |
 | `.claude-plugin/marketplace.json` | Claude Code marketplace |
