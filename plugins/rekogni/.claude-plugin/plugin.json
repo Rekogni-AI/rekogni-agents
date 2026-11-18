@@ -8,6 +8,8 @@
   },
   "homepage": "https://github.com/Rekogni-AI/rekogni-agents",
   "repository": "https://github.com/Rekogni-AI/rekogni-agents",
+  "privacyPolicyUrl": "https://www.rekogni.ai/privacy-policy",
+  "icon": "./assets/icon.png",
   "keywords": [
     "rekogni",
     "engineering-metrics",
