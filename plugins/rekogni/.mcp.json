@@ -2,7 +2,7 @@
   "mcpServers": {
     "rekogni": {
       "type": "http",
-      "url": "https://staging.app.rekogni.ai/api/mcp"
+      "url": "https://app.rekogni.ai/api/mcp"
     }
   }
 }

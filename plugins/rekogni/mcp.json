@@ -3,7 +3,7 @@
   "mcpServers": {
     "rekogni": {
       "type": "streamable-http",
-      "url": "https://staging.app.rekogni.ai/api/mcp",
+      "url": "https://app.rekogni.ai/api/mcp",
       "extensions": {
         "com.openai": {
           "auth": { "type": "oauth", "client": { "mode": "dcr" } }
