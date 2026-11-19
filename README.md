@@ -6,11 +6,13 @@ review, your team's standup, your 1:1 prep. Answers come from [Rekogni](https://
 Everything here connects to one hosted server, `https://app.rekogni.ai/api/mcp` (the Rekogni connector, an
 [MCP](https://modelcontextprotocol.io) server). You sign in once with your Rekogni account; there are no keys to copy.
 
-There are two parts, and each agent takes one or both:
+There are three parts, and each agent takes one or more:
 
 - **The connector** gives the agent Rekogni's tools: dashboards, agent results, and runs.
 - **The `rekogni` skill** tells the agent which tool answers which question. Only its one-line description sits in the
   agent's context until you ask a Rekogni question.
+- **The `rekogni` CLI** reads the same dashboards and agent results from the terminal. Sign in once per machine, and
+  every agent that can run a command can use it, with no connector to add to each.
 
 ## Pick your agent
 
@@ -25,6 +27,7 @@ There are two parts, and each agent takes one or both:
 | [Gemini CLI](#gemini-cli) | One command | Connector (add the skill separately) |
 | [Windsurf](#windsurf) | `mcp_config.json` | Connector |
 | [Any other MCP client](#any-other-agent) | `npx add-mcp` | Connector |
+| [Any agent with a terminal, or you](#the-cli) | `npx @rekogni/cli auth login` | CLI (add the skill for when to use it) |
 
 ## Claude Code
 
@@ -130,6 +133,17 @@ npx add-mcp https://app.rekogni.ai/api/mcp
 
 Or add the URL `https://app.rekogni.ai/api/mcp` in your agent's MCP settings as a remote (HTTP) server.
 
+## The CLI
+
+```bash
+npx @rekogni/cli auth login                 # once per machine: sign in through your browser
+npx @rekogni/cli dashboard --metrics inbox  # what is waiting on you
+npx @rekogni/cli agent dailySummary         # your latest daily summary
+```
+
+It reads; runs start from the web app or the connector. All commands, and where your sign-in is kept:
+[cli/README.md](cli/README.md).
+
 ## The skill in other agents
 
 The skill is a plain [Agent Skills](https://agentskills.io) file, `plugins/rekogni/skills/rekogni/SKILL.md`, so agents
@@ -185,10 +199,12 @@ Added the connector alone instead? `codex mcp remove rekogni`.
 | Gemini CLI | `gemini mcp remove rekogni` |
 | Windsurf | Delete the `rekogni` entry from `~/.codeium/windsurf/mcp_config.json` |
 | The skill, added by hand | Delete the `rekogni` folder from your agent's skills folder |
+| The CLI | `npx @rekogni/cli auth logout`, then `npm uninstall -g @rekogni/cli` if you installed it |
 
 ## Troubleshooting
 
 - **"needs authentication"**: sign in from your agent (`/mcp` in Claude Code, `codex mcp login rekogni` in Codex).
+- **CLI: "Not signed in" or "sign-in has expired"**: run `npx @rekogni/cli auth login`.
 - **No access, or "You aren't a member of …"**: finish setting up Rekogni at [app.rekogni.ai](https://app.rekogni.ai),
   or ask your workspace admin to add you.
 - **Two sets of Rekogni tools**: you added the connector twice (for example the plugin and a claude.ai connector).
@@ -198,9 +214,9 @@ Added the connector alone instead? `codex mcp remove rekogni`.
 
 ## Privacy and access
 
-- Nothing secret lives in this repository: it holds the connector's address, the skill and these docs.
-- Each person signs in with their own Rekogni account. Your agent keeps your sign-in on your machine; it never goes
-  into a file here.
+- Nothing secret lives in this repository: it holds the connector's address, the skill, the CLI and these docs.
+- Each person signs in with their own Rekogni account. Your agent, or the CLI (in your system keychain), keeps your
+  sign-in on your machine; it never goes into a file here.
 - Rekogni answers only with your own data and that of the workspaces you belong to, exactly as the web app does.
 - Reading results is free. Starting an agent run asks for your approval and is limited per person.
 
@@ -213,6 +229,7 @@ Added the connector alone instead? `codex mcp remove rekogni`.
 | `plugins/rekogni/plugin.json`, `plugins/rekogni/mcp.json` | Codex plugin (portable agent-plugins format) |
 | `.claude-plugin/marketplace.json` | Claude Code marketplace |
 | `.agents/plugins/marketplace.json` | Codex marketplace |
+| `cli/` | The `@rekogni/cli` package |
 | `SECURITY.md`, `.github/CODEOWNERS` | How to report a security problem; who reviews changes |
 
 ## Security and license

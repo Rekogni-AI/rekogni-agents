@@ -36,10 +36,23 @@ if two could fit, ask which.
   numbers and links as written. A number shown as "unavailable" couldn't be loaded: never report it as zero. If an
   agent has no result for a period, say so and offer a run; don't write your own summary instead.
 
+## Without the connector: the CLI
+
+If there are no `rekogni` tools but you can run commands, use the Rekogni CLI. It answers with the same text:
+
+| Tool | Command |
+| --- | --- |
+| `get_individual_dashboard` / `get_workspace_dashboard` | `npx -y @rekogni/cli dashboard [--workspace NAME] [--from D] [--to D] [--metrics a,b]` |
+| `get_individual_agent` / `get_workspace_agent` | `npx -y @rekogni/cli agent TYPE [--workspace NAME] [--from D] [--to D]` (no `TYPE`: lists them) |
+
+The same rules apply. The CLI does not start runs: offer the web app or the connector for that. If it says "Not signed
+in" or "sign-in has expired", ask the user to run `npx @rekogni/cli auth login` themselves (it opens their browser);
+don't run it for them.
+
 ## Sign-in and access
 
-- **No `rekogni` tools available** means the user hasn't signed in yet. Don't answer from memory or guess. Tell them
-  to sign in once: in Claude Code, run `/mcp`, choose **plugin:rekogni:rekogni** (or **rekogni**), then
+- **No `rekogni` tools available** (and no CLI to run) means the user hasn't signed in yet. Don't answer from memory
+  or guess. Tell them to sign in once: in Claude Code, run `/mcp`, choose **plugin:rekogni:rekogni** (or **rekogni**), then
   **Authenticate**; in Codex, run `codex mcp login rekogni`. Their browser opens Rekogni: sign in, click **Allow**,
   then ask again.
 - A tool that answers "unauthorized" or asks to sign in again: same steps.
