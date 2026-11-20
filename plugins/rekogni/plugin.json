@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "rekogni",
+  "version": "0.1.0",
+  "description": "Ask about your engineering work from your coding agent: Rekogni dashboards and agent results. Signs in with your Rekogni account.",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Rekogni",
+        "shortDescription": "Your engineering work: dashboards, summaries, standups",
+        "longDescription": "Ask Codex how many PRs you merged, what is waiting on your review, or for your team's standup. Rekogni answers from your own account; each person signs in with Rekogni.",
+        "developerName": "Rekogni",
+        "category": "Productivity",
+        "capabilities": ["Read"],
+        "websiteURL": "https://rekogni.ai",
+        "defaultPrompt": [
+          "Use Rekogni: how many PRs did I merge this week?",
+          "Use Rekogni: what is waiting on my review?",
+          "Use Rekogni: show my team's latest standup."
+        ]
+      }
+    }
+  }
+}

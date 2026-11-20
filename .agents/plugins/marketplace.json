@@ -1,0 +1,12 @@
+{
+  "name": "rekogni",
+  "interface": { "displayName": "Rekogni" },
+  "plugins": [
+    {
+      "name": "rekogni",
+      "source": { "source": "local", "path": "./plugins/rekogni" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}
