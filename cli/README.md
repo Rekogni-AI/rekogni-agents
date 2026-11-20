@@ -10,13 +10,21 @@ It is separate from the Rekogni connector (MCP) and needs nothing from it; both 
 ## Install and sign in
 
 ```bash
-npx @rekogni/cli auth login
+npm install -g @rekogni/cli
+rekogni auth login
 ```
 
-Your browser opens Rekogni: sign in and click **Allow**. The terminal then says who you are signed in as.
+Your browser opens Rekogni: sign in and click **Allow**. The terminal then says who you are signed in as. It needs
+Node.js 20 or later.
 
-To type `rekogni` instead of `npx @rekogni/cli`, install it once: `npm install -g @rekogni/cli`. It needs Node.js 20 or
-later.
+**Or run it without installing**, with npx (it downloads the CLI the first time). There is then no `rekogni` command:
+start each command with `npx @rekogni/cli` instead.
+
+```bash
+npx @rekogni/cli auth login
+npx @rekogni/cli --help
+npx @rekogni/cli dashboard
+```
 
 ## Commands
 

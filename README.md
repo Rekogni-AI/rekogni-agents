@@ -190,13 +190,7 @@ your machine, and use it yourself or let any agent that can run commands use it.
 
 ### Install and sign in
 
-Run it without installing (npx downloads it the first time):
-
-```bash
-npx @rekogni/cli auth login
-```
-
-Or install it once, to type `rekogni` instead of `npx @rekogni/cli`:
+Install it once, then sign in:
 
 ```bash
 npm install -g @rekogni/cli
@@ -205,6 +199,15 @@ rekogni auth login
 
 Your browser opens Rekogni: sign in and click **Allow**. The terminal then says who you are signed in as. Your
 sign-in is kept in your system keychain and renews itself as you use it.
+
+**Or run it without installing**, with npx (it downloads the CLI the first time). There is then no `rekogni` command:
+start each command with `npx @rekogni/cli` instead.
+
+```bash
+npx @rekogni/cli auth login
+npx @rekogni/cli --help
+npx @rekogni/cli dashboard
+```
 
 ### Use it
 
@@ -216,7 +219,7 @@ rekogni agent dailySummary                         # your latest daily summary
 rekogni auth status                                # who is signed in
 ```
 
-(With npx, write `npx @rekogni/cli` where these say `rekogni`.) All commands and options: `rekogni --help` and
+(Without installing, write `npx @rekogni/cli` where these say `rekogni`.) All commands and options: `rekogni --help` and
 [cli/README.md](cli/README.md). The CLI reads; start agent runs from the web app or the connector.
 
 **With an agent:** ask it to use the Rekogni CLI ("Using the rekogni CLI, how many PRs did I merge this week?"), or add
