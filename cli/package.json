@@ -1,6 +1,6 @@
 {
   "name": "@rekogni/cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Rekogni from the terminal: sign in once, then any coding agent can read your Rekogni dashboards and agent results.",
   "type": "module",
   "bin": {
