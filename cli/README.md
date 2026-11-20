@@ -4,7 +4,8 @@ Rekogni from the terminal. Sign in once on your machine; then you, and any codin
 (Claude Code, Codex, Cursor, Gemini CLI…), can read your Rekogni dashboards and agent results. There is no connector
 to add to each agent and no tool list loaded into its context.
 
-It talks to the same hosted server as the Rekogni connector, `https://app.rekogni.ai/api/mcp`, with the same sign-in.
+It is separate from the Rekogni connector (MCP) and needs nothing from it; both talk to the same hosted server,
+`https://app.rekogni.ai/api/mcp`, with the same Rekogni sign-in.
 
 ## Install and sign in
 
@@ -48,6 +49,13 @@ readable only by you. `rekogni auth logout` removes it from either place.
 
 The sign-in renews itself as you use it. If it can't, the CLI says to run `rekogni auth login` again; it never opens a
 browser on its own.
+
+## Remove
+
+1. Sign out, which removes your sign-in from the keychain (or the file): `rekogni auth logout`, or
+   `npx @rekogni/cli auth logout`.
+2. If you installed it with `npm install -g`, uninstall it: `npm uninstall -g @rekogni/cli`. If you only used npx,
+   there is nothing installed to remove.
 
 ## Another Rekogni
 
