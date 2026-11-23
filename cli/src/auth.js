@@ -8,9 +8,8 @@ const LOGIN_TIMEOUT_MS = 5 * 60 * 1000;
 
 /**
  * OAuth for the MCP SDK, the same sign-in Claude Code uses: dynamic client registration, PKCE, and a code sent back to
- * a port on this machine. Rekogni's consent page trusts loopback callbacks (src/lib/mcp/trusted-clients.ts in
- * rekogniai-website). Outside `rekogni auth login` it never opens a browser: a session that can't be refreshed
- * marks `needsLogin` and stops.
+ * a port on this machine. Rekogni's consent page accepts loopback callbacks. Outside `rekogni auth login` it never
+ * opens a browser: a session that can't be refreshed marks `needsLogin` and stops.
  */
 export class RekogniAuthProvider {
   constructor({ data = {}, redirectUrl, openBrowser, onSave }) {
