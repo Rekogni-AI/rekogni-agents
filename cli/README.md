@@ -65,12 +65,9 @@ browser on its own.
 2. If you installed it with `npm install -g`, uninstall it: `npm uninstall -g @rekogni/cli`. If you only used npx,
    there is nothing installed to remove.
 
-## Another Rekogni
-
-`REKOGNI_URL` points the CLI at another Rekogni, such as a local one: `REKOGNI_URL=http://localhost:3000 rekogni
-dashboard`. Each one has its own sign-in. Plain `http://` is only accepted for `localhost`.
-
 ## Develop
+
+For Rekogni developers; users don't need any of this.
 
 ```bash
 cd cli
@@ -78,3 +75,7 @@ npm install
 npm test            # signs in, refreshes and calls tools against a local stand-in for Rekogni
 node bin/rekogni.js --help
 ```
+
+To try the CLI against a Rekogni running on your machine instead of app.rekogni.ai, set `REKOGNI_URL`:
+`REKOGNI_URL=http://localhost:3000 node bin/rekogni.js dashboard`. It keeps a separate sign-in for each URL, and
+plain `http://` is accepted only for localhost.

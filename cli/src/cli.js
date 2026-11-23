@@ -25,7 +25,6 @@ Options:
   -v, --version        The CLI version
 
 With no dates, a dashboard covers the last 7 days and an agent shows its latest results.
-REKOGNI_URL points the CLI at another Rekogni (default https://app.rekogni.ai).
 `;
 
 const OPTIONS = {
