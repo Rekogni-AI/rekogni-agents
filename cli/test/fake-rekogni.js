@@ -17,7 +17,7 @@ export async function startFakeRekogni({ email = 'dev@rekogni.test' } = {}) {
   const codes = new Map(); // code -> { clientId, redirectUri, challenge }
   const access = new Set();
   const refresh = new Map(); // refresh token -> client_id
-  const state = { calls: [], forbidden: false, registrations: 0, authorizations: 0 };
+  const state = { calls: [], userAgents: [], forbidden: false, registrations: 0, authorizations: 0 };
   let origin;
 
   const issue = (clientId) => {
@@ -141,6 +141,7 @@ export async function startFakeRekogni({ email = 'dev@rekogni.test' } = {}) {
       return json(res, 400, { error: 'unsupported_grant_type' });
     }
     if (url.pathname === '/api/mcp') {
+      state.userAgents.push(req.headers['user-agent']);
       const token = req.headers.authorization?.match(/^Bearer (.+)$/i)?.[1];
       if (!token || !access.has(token)) {
         return json(

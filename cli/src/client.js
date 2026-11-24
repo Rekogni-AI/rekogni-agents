@@ -54,7 +54,9 @@ export async function withClient({ server, store }, use) {
   const provider = new RekogniAuthProvider({ data, onSave: (next) => store.save(next) });
   const client = new Client({ name: 'rekogni-cli', version: VERSION });
   try {
-    await client.connect(new StreamableHTTPClientTransport(server, { authProvider: provider }));
+    // Names the CLI to Rekogni, so its calls show apart from the connector's in Rekogni's usage analytics (REK-396).
+    const requestInit = { headers: { 'User-Agent': `rekogni-cli/${VERSION}` } };
+    await client.connect(new StreamableHTTPClientTransport(server, { authProvider: provider, requestInit }));
     return await use(client);
   } catch (error) {
     throw explain(error, provider);

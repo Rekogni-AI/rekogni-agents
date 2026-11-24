@@ -147,6 +147,16 @@ describe('rekogni dashboard and agent', () => {
     assert.equal(err, 'Invalid agentType "nope": expected one of dailySummary');
   });
 
+  it('names itself to Rekogni as rekogni-cli with its version', async () => {
+    const store = await signedIn();
+    rekogni.state.userAgents.length = 0;
+
+    await cli(['dashboard'], { store });
+
+    assert.ok(rekogni.state.userAgents.length > 0);
+    for (const ua of rekogni.state.userAgents) assert.match(ua, /^rekogni-cli\/\d+\.\d+\.\d+$/);
+  });
+
   it("a tool's error is printed and exits 1", async () => {
     const store = await signedIn();
     const { code, err } = await cli(['dashboard', '--workspace', 'nope'], { store });
